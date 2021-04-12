@@ -5,10 +5,14 @@
         <div class="header-block">
           <nav class="header-nav">
             <div class="link-wrapper">
-              <router-link class="nav-link" to="/frontend-challenge/" exact>Все котики</router-link>
+              <router-link class="nav-link" to="/frontend-challenge/" exact
+                >Все котики</router-link
+              >
             </div>
             <div class="link-wrapper">
-              <router-link class="nav-link" to="/frontend-challenge/like-cats" >Любимые котики</router-link>
+              <router-link class="nav-link" to="/frontend-challenge/like-cats"
+                >Любимые котики</router-link
+              >
             </div>
           </nav>
         </div>
@@ -25,7 +29,7 @@
                 v-for="url of data"
                 :key="url.id + Date.now()"
               >
-                <img class="cat-img" :src="url.url" alt="" @click="img"/>
+                <img class="cat-img" :src="url.url" alt="" @click="img" />
                 <label class="wrapper-like">
                   <input
                     type="checkbox"
@@ -50,7 +54,6 @@
 <script>
 import axios from "axios";
 
-
 export default {
   name: "AllCats",
   data() {
@@ -67,23 +70,16 @@ export default {
   },
 
   mounted() {
-
-    try{
-      JSON.parse(localStorage.url)
-
-    } catch(e){
-      localStorage.setItem('url', '[]')
-    }
-    
     this.loadNextImage();
-    document.onscroll = (() => {
-      const heightNow = document.querySelector('.more-cats').getBoundingClientRect();
-      if(heightNow.y === 600) {
+    document.onscroll = () => {
+      const heightNow = document
+        .querySelector(".more-cats")
+        .getBoundingClientRect();
+      if (heightNow.y === 600) {
         this.page++;
-        this.loadNextImage()
-        
+        this.loadNextImage();
       }
-    })
+    };
   },
   methods: {
     async loadNextImage() {
@@ -116,16 +112,20 @@ export default {
       this.loadNextImage();
     },
     img() {
-      console.log('wsr')
+      console.log("wsr");
     },
     addLikeCats(e) {
-      console.log(e.target);
+      try {
+        JSON.parse(localStorage.url);
+      } catch (e) {
+        localStorage.setItem("url", "[]");
+      }
 
       if (e.target.checked) {
         const urlImage = e.target.parentNode.parentNode
           .querySelector("img")
           .getAttribute("src");
-  
+
         if (localStorage.url && Array.isArray(JSON.parse(localStorage.url))) {
           localStorage.url = JSON.stringify([
             ...JSON.parse(localStorage.url),
@@ -161,7 +161,6 @@ export default {
   margin: 0;
   padding: 0;
 }
-
 
 .container {
   margin: 0 auto;
@@ -226,7 +225,6 @@ export default {
   background-color: #1e88e5;
 }
 
-
 .image-wrapper {
   position: relative;
 }
@@ -253,11 +251,10 @@ export default {
   display: flex;
 }
 
-a.router-link-active, li.router-link-active>a {
+a.router-link-active,
+li.router-link-active > a {
   background-color: #1e88e5;
 }
-
-
 
 .circle {
   display: none;
