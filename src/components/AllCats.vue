@@ -67,6 +67,13 @@ export default {
   },
 
   mounted() {
+
+    try{
+      JSON.parse(localStorage.getItem('url'))
+
+    }catch(e){
+      localStorage.setItem('url', '[]')
+    }
     this.loadNextImage();
     document.onscroll = (() => {
       const heightNow = document.querySelector('.more-cats').getBoundingClientRect();
@@ -117,7 +124,7 @@ export default {
         const urlImage = e.target.parentNode.parentNode
           .querySelector("img")
           .getAttribute("src");
-
+  
         if (localStorage.url && Array.isArray(JSON.parse(localStorage.url))) {
           localStorage.url = JSON.stringify([
             ...JSON.parse(localStorage.url),
