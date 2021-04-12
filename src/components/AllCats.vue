@@ -69,11 +69,12 @@ export default {
   mounted() {
 
     try{
-      JSON.parse(localStorage.getItem('url'))
+      JSON.parse(localStorage.url)
 
-    }catch(e){
+    } catch(e){
       localStorage.setItem('url', '[]')
     }
+    
     this.loadNextImage();
     document.onscroll = (() => {
       const heightNow = document.querySelector('.more-cats').getBoundingClientRect();
